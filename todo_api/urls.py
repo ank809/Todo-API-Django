@@ -21,5 +21,7 @@ from api import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('create_todo', views.createTodo),
-    path('read_todo', views.read)
+    path('read_todo', views.read),
+    path('update/<int:id>', views.update_todo),
+    path('delete/<int:id>', views.delete_todo)
 ]
