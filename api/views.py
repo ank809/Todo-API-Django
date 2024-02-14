@@ -21,8 +21,9 @@ def createTodo(request):
             serializer.save()
             return HttpResponse('Data Saved', serializer.data)
         else:
-            return HttpResponse(serializer.errors)
-    return HttpResponse('METHOD NOT ALLOWED')
+            json_data=JSONRenderer().render(serializer.errors)
+            return HttpResponse(json_data, content_type='application/json')
+    return HttpResponse('Method Not Allowed', status=405)
     
 @csrf_exempt    
 def read(request):
@@ -50,7 +51,9 @@ def update_todo(request, id):
             serializer.save()
             return HttpResponse('TODO UPDATED')
         else:
-            return HttpResponse(serializer.errors, status=400)
+            json_data=JSONRenderer().render(serializer.error)
+            return HttpResponse(json_data, status=400, content_type='application/json')
+        
     else:
         return HttpResponse('Method Not Allowed', status=405)
 
